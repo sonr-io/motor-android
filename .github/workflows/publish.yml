@@ -1,0 +1,22 @@
+name: Motor Maven Publish Workflow
+
+on:
+  push:
+    tags:
+      - v*
+
+jobs:
+  publish-package:
+    name: "Publish Android Package to Github Maven Package"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - uses: houqp/download-release-assets@v1
+        with:
+          repo: sonr-io/sonr
+          match: "terraform-provider-airflow_.+_Linux_386.tar.gz$"
+          rename: terraform-provider-airflow
