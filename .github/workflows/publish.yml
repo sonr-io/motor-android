@@ -17,4 +17,6 @@ jobs:
           fetch-depth: 0
 
       - name: Download Latest Android Release
-        run: gh release download -R sonr-io/sonr -p 'motorlib_*_android_*.tar.gz'
+        run: |
+          gh auth login --with-token ${{ secrets.ACTIONS_GH_TOKEN }}
+          gh release download -R sonr-io/sonr -p 'motorlib_*_android_*.tar.gz'
