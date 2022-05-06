@@ -1,9 +1,8 @@
 name: Motor Maven Publish Workflow
 
 on:
-  push:
-    tags:
-      - v*
+  repository_dispatch:
+    types: [new-android-framework]
 
 jobs:
   publish-package:
@@ -15,8 +14,5 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: houqp/download-release-assets@v1
-        with:
-          repo: sonr-io/sonr
-          match: "terraform-provider-airflow_.+_Linux_386.tar.gz$"
-          rename: terraform-provider-airflow
+      - name: Download Latest Android Release
+        run: gh release download -R sonr-io/sonr -p 'motorlib_*_android_*.tar.gz'
